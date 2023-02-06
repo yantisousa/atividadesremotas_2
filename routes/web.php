@@ -4,6 +4,7 @@ use App\Http\Controllers\AlunosCreateController;
 use App\Http\Controllers\AtividadesController;
 use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\DisciplinesController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('autenticador')->group(function(){
-    
+
     Route::post('/cadastro/aluno/store', [AlunosCreateController::class, 'createAluno'])->name('alunos.store');
     Route::get('/disciplines/index', [DisciplinesController::class, 'index'])->name('disciplines.index');
     Route::get('/disciplines/create', [DisciplinesController::class, 'create'])->name('disciplines.create');
@@ -27,7 +28,7 @@ Route::middleware('autenticador')->group(function(){
     Route::get('/disciplines/edit/{id}', [DisciplinesController::class, 'edit'])->name('disciplines.edit');
     Route::post('/disciplines/update/{id}', [DisciplinesController::class, 'update'])->name('disciplines.update');
     Route::get('/disciplines/destroy/{id}', [DisciplinesController::class, 'destroy'])->name('disciplines.destroy');
-    
+
     Route::get('/atividades/create/{id}', [AtividadesController::class, 'create'])->name('atividades.create');
     Route::post('/atividades/store/{id}', [AtividadesController::class, 'store'])->name('atividades.store');
     Route::get('/atividades/index/{id}', [AtividadesController::class, 'index'])->name('atividades.index');
@@ -37,8 +38,8 @@ Route::middleware('autenticador')->group(function(){
     Route::get('/cadastro/aluno', [AlunosCreateController::class, 'create'])->name('alunos.create');
     Route::get('/destroy/professor/{id}', [LoginController::class, 'destroy'])->name('professores.destroy');
 });
-
-Route::get('/', function(){
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/login', function(){
     return view('principal.create');
 })->name('login');
 Route::post('/login/store', [LoginController::class, 'store'])->name('login.store');
