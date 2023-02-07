@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activities;
+use App\Models\activities_responses;
 use App\Models\Atividades;
 use App\Models\Disciplines;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AtividadesController extends Controller
 {
@@ -19,10 +21,10 @@ class AtividadesController extends Controller
     {
         $disciplinasID = Disciplines::find($id);
         $idProfessor = Auth::user()->id;
-        if(Auth::user()->roles_id == 1){
+        if (Auth::user()->roles_id == 1) {
             $atividades = Activities::where('teacher_id', $idProfessor)->where('discipline_id', $id)->get();
             return view('atividades.index', compact('atividades', 'disciplinasID'));
-        }else {
+        } else {
             $atividades = Activities::where('discipline_id', $id)->get();
             return view('atividades.index', compact('atividades', 'disciplinasID'));
         }
@@ -47,15 +49,23 @@ class AtividadesController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $request->filepath = $request->filepath->store('produtos', 'public');
+
         $idProfessor = Auth::user()->id;
-        Activities::create([
+
+        $atividade = Activities::create([
             'teacher_id' => $idProfessor,
             'discipline_id' => $id,
             'name' => $request->name,
-            'filepath' => $request->filepath,
+            'filepath' => '..',
             'description' => $request->description,
         ]);
+
+        $filepath = "public/professores/{$idProfessor}/atividades/{$atividade->id}.html";
+
+        Storage::disk('local')->put($filepath, $request->filepath);
+
+        $atividade->update(['filepath' => $filepath]);
+
         return redirect()->route('atividades.index', compact('id'));
     }
 
@@ -78,7 +88,7 @@ class AtividadesController extends Controller
      */
     public function edit($id)
     {
-        
+
         $atividade = Activities::find($id);
         return view('atividades.edit', compact('atividade'));
     }
@@ -97,7 +107,7 @@ class AtividadesController extends Controller
         $teste = $request->filepath->store('produtos', 'public');
         $dados->update([
             'name' => $request->name,
-            'filepath' => $teste, 
+            'filepath' => $teste,
             'description' => $request->description,
         ]);
         return redirect()->route('atividades.index', compact('id'));
@@ -114,5 +124,23 @@ class AtividadesController extends Controller
         $dadosAtividades = Activities::find($id);
         $dadosAtividades->delete();
         return redirect()->back();
+    }
+    public function ckeditor()
+    {
+        return view('atividades.editor');
+    }
+    public function retornarActivities($id)
+    {
+        $dadosActivities = Activities::find($id);
+        $fileContent = Storage::get($dadosActivities->filepath);
+        return view('atividades.editor', compact('fileContent'));
+    }
+    public function createResposta($id){    
+        $atividadeID = Activities::find($id);
+        dd($atividadeID);
+        return view('atividades.resposta');
+    }
+    public function storeResposta(){
+
     }
 }

@@ -50,13 +50,19 @@
             @forelse ($atividades as $atividade)
                 <div class="col-3">
                     <div class="card" style="width: 13rem; ">
-                        <img src="{{ asset('storage/' . $atividade->filepath) }}" class="card-img-top" alt="...">
+                        {{-- <img src="{{ asset('storage/' . $atividade->filepath) }}" class="card-img-top" alt="..."> --}}
                         <div class="card-body">
                             <h5 class="card-title">{{ $atividade->name }}</h5>
                             <p class="card-text">{{ $atividade->description }}</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><button class="btn btn-primary">Ver Atividade</button></li>
+                            <li class="list-group-item"><button class="btn btn-primary"><a
+                                        href="{{ route('atividades.responder', $atividade->id) }}">Ver
+                                        Atividade</a></button></li>
+                            @if (Auth::user()->roles_id == 2)
+                                <li class="list-group-item"><button  class="btn btn-primary" ><a href="{{route('atividades.respondida', $atividade->id)}}">Enviar</a></button>
+                                </li>
+                            @endif
                             @if (Auth::user()->roles_id == 1)
                                 <li class="list-group-item"><button class="btn btn-info"
                                         onclick="editar({{ $atividade->id }})"> <a
@@ -82,45 +88,34 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar atividade</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Enviar Atividade</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form class="form-login" enctype="multipart/form-data">
                         <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" id="id-atividade">
+                        <input type="button" value="{{$atividade->id}}" id="id-atividade">
                         <div class="row">
+                            <input type="hidden" value="">
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <input type="text" class="form-control " id="exampleFormControlInput1"
-                                        name="name" placeholder="Nome da Atividade">
+                                    <input type="file" class="form-control" id="file" name="filepath"
+                                        placeholder="Email">
                                 </div>
-
-                                <div class="col-12">
-                                    <div class="mb-3">
-                                        <input type="file" class="form-control" id="file" name="filepath"
-                                            placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="mb-3" id="div-imagem">
-                                        <img style="width: 100px;" id="imagem" src=""alt="">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="mb-3">
-                                        <textarea class="form-control" type="password" id="description" name="description"
-                                            placeholder="Descrição sobre a atividade"></textarea>
-
-                                    </div>
-                                </div>
-
                             </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <textarea class="form-control description" type="password" id="description" name="description"
+                                        placeholder="Descrição sobre a atividade" ></textarea>
+
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="update()">Editar</button>
+                    <button type="button" class="btn btn-primary" onclick="responderAtividade()">Enviar</button>
                 </div>
             </div>
         </div>

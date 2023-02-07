@@ -1,4 +1,3 @@
-<script src="https://cdn.ckeditor.com/ckeditor5/36.0.0/classic/ckeditor.js"></script>
 
     <style>
         body {
@@ -40,30 +39,22 @@
         <div class="row coluna-login">
             <div class="col-md-4 offset-md-4 align-self-center "
                 style="background-color: white; height:400px; border-radius: 10px; box-shadow:0 0px 3px #67736b;">
-                <form action="{{route('atividades.store', $disciplinasID)}}" method="POST" class="form-login" enctype="multipart/form-data">
+                <form action="{{route('responder.store', $ativi)}}" method="POST" class="form-login" enctype="multipart/form-data">
                     @csrf
-                    <h4>Criar Atividade</h4>
+                    <h4>Responder Atividade</h4>
                     <div class="row">
                         <div class="col-12">
-                            <div class="mb-3">
-                                <input type="text" class="form-control" id="exampleFormControlInput1" name="name"
-                                    placeholder="Nome da Atividade">
-                            </div>
-
                                 <div class="col-12">
                                     <div class="mb-3">
-                                        <textarea name="filepath" id="editor"></textarea>        
+                                        <div class="input-group">
+                                            <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                            <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Button</button>
+                                          </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="mb-3">
-                                        <textarea class="form-control" type="password" id="exampleFormControlInput1"
-                                            name="description" placeholder="Descrição sobre a atividade"></textarea>
-
-                                    </div>
-                                </div>
                                 <div class="d-grid gap-2">
-                                    <button class="btn btn-primary" type="submit">Criar</button>
+                                    <button class="btn btn-primary" type="submit">Enviar</button>
                                 </div>
                             </div>
                 </form>

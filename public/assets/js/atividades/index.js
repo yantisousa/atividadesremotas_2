@@ -30,7 +30,26 @@ function update(){
                 
             }
         })
+// }
+// function enviarAtividade(id){
+//     idAtividade = $('#id-atividade').val(id)
+// }
+// function responderAtividade(){
+//     file = $('#file').val();
+//     description = $('#description').val();
 
-    
+//     idAtividade = $('#id-atividade').val()
+//     console.log(idAtividade);
+//     $.ajax({
+//         url: '/atividides/respondida',
+//         type: 'get',
+//         data: {
+//             idAtividade,
+//             file,
+//             description
+//         },
+//         success: function(dados){
+//         }
+//     })
 
 }

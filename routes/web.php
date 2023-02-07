@@ -37,6 +37,9 @@ Route::middleware('autenticador')->group(function(){
     Route::get('/atividades/destroy/{id}', [AtividadesController::class, 'destroy'])->name('atividades.destroy');
     Route::get('/cadastro/aluno', [AlunosCreateController::class, 'create'])->name('alunos.create');
     Route::get('/destroy/professor/{id}', [LoginController::class, 'destroy'])->name('professores.destroy');
+    Route::get('/atividides/responder/{id}', [AtividadesController::class, 'retornarActivities'])->name('atividades.responder');
+    Route::get('/ativididades/respondida/{id}', [AtividadesController::class, 'createResposta'])->name('atividades.respondida');
+    Route::post('/atividides/respondida/store/{$id}', [AtividadesController::class, 'storeResposta'])->name('responder.store');
 });
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/login', function(){

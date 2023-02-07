@@ -22,6 +22,7 @@
                             {{ Auth::user()->name }}
 
                         </a>
+                       
                         @if (Auth::user()->roles_id == 1)
                         <a href="{{ route('disciplines.create') }}" class="list-group-item list-group-item-action"
                        >Criar Disciplina</a>
@@ -69,8 +70,18 @@
                     <label for="exampleInputEmail1" class="form-label">Email</label>
                   <input type="email" class="form-control" value="{{ Auth::user()->email }}" disabled id="exampleInputPassword1">
                 </div>
-                <div class="mb-3 form-check">
+                @if(Auth::user()->roles_id == 1)
+              
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Eu sou:</label>
+                  <input type="email" class="form-control" value="Professor(a)" disabled id="exampleInputPassword1">
                 </div>
+                @else
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Eu sou:</label>
+                  <input type="email" class="form-control" value="Aluno(a)" disabled id="exampleInputPassword1">
+                </div>
+                @endif
               </form>
         </div>
         <div class="modal-footer">
