@@ -58,8 +58,14 @@
                             @forelse ($disciplines as $disciplina)
                             <tr>
                                 <td>{{ $disciplina->name }}</td>
-                                <td><button class="btn btn-warning"><a
-                                    href="{{ route('atividades.index', $disciplina->id) }}">Atividades</a></button>
+                                <td><a
+                                    href="{{ route('atividades.index', $disciplina->id) }}"><button type="button" class="btn btn-primary position-relative">
+                                        Atividades
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                            {{$disciplinesCount}}
+                                          <span class="visually-hidden">unread messages</span>
+                                        </span>
+                                      </button></a>
                                 </td>
                                 @if (Auth::user()->roles_id == 1)
                                 <td><button class="btn btn-info btn-edit"> <a

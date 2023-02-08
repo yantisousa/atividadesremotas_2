@@ -15,7 +15,8 @@ class DisciplinesController extends Controller
     public function index()
     {
         $disciplines = Disciplines::get();
-        return view('disciplines.index', compact('disciplines'));
+        $disciplinesCount = Disciplines::get()->count();
+        return view('disciplines.index', compact('disciplines', 'disciplinesCount'));
     }
 
     /**

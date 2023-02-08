@@ -6,6 +6,7 @@ use App\Models\Activities;
 use App\Models\activities_responses;
 use App\Models\Atividades;
 use App\Models\Disciplines;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -17,16 +18,17 @@ class AtividadesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Request $request, $id)
     {
+        $users = User::find(Auth::user()->id);
         $disciplinasID = Disciplines::find($id);
         $idProfessor = Auth::user()->id;
-        if (Auth::user()->roles_id == 1) {
+        if (Auth::user()->roles_id == 1 ) {
             $atividades = Activities::where('teacher_id', $idProfessor)->where('discipline_id', $id)->get();
             return view('atividades.index', compact('atividades', 'disciplinasID'));
         } else {
-            $atividades = Activities::where('discipline_id', $id)->get();
-            return view('atividades.index', compact('atividades', 'disciplinasID'));
+            $atividades = Activities::where('discipline_id', $id)->where('status', 1)->get();
+            return view('atividades.index', compact('atividades', 'disciplinasID', 'users'));
         }
     }
 
@@ -58,6 +60,7 @@ class AtividadesController extends Controller
             'name' => $request->name,
             'filepath' => '..',
             'description' => $request->description,
+            'status' => 1,
         ]);
 
         $filepath = "public/professores/{$idProfessor}/atividades/{$atividade->id}.html";
@@ -137,10 +140,21 @@ class AtividadesController extends Controller
     }
     public function createResposta($id){    
         $atividadeID = Activities::find($id);
-        dd($atividadeID);
-        return view('atividades.resposta');
+        return view('atividades.resposta', compact('atividadeID'));
     }
-    public function storeResposta(){
-
+    public function resposta(Request $request, $id){
+        $request->filepath = $request->filepath->store('produtos', 'public');
+        activities_responses::create([
+            'activity_id' => $id,
+            'student_id' => Auth::user()->id,
+            'check' => 0,
+            'note' => 0,
+            'filepath' => $request->filepath,
+            'description' => $request->description,
+        ]);
+        $activities = Activities::find($id);
+        $activities->update(['status' => 2]);
+        $id = $activities->discipline_id;
+        return to_route('atividades.index', compact('id'));
     }
 }

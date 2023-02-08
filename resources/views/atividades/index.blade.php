@@ -8,6 +8,7 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        
 </head>
 <style>
     .table {
@@ -60,7 +61,10 @@
                                         href="{{ route('atividades.responder', $atividade->id) }}">Ver
                                         Atividade</a></button></li>
                             @if (Auth::user()->roles_id == 2)
-                                <li class="list-group-item"><button  class="btn btn-primary" ><a href="{{route('atividades.respondida', $atividade->id)}}">Enviar</a></button>
+                                <li class="list-group-item"><button  class="btn btn-primary"><a href="{{route('atividades.respondida', $atividade->id)}}">Enviar</a></button>
+                                </li>
+                            @elseif(Auth::user()->roles_id == 2 && $users->studentResponse->check == 0)
+                                <li class="list-group-item"><button  class="btn btn-primary">Atividade Enviada</button>
                                 </li>
                             @endif
                             @if (Auth::user()->roles_id == 1)
@@ -94,7 +98,7 @@
                 <div class="modal-body">
                     <form class="form-login" enctype="multipart/form-data">
                         <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}">
-                        <input type="button" value="{{$atividade->id}}" id="id-atividade">
+                        {{-- <input type="button" value="{{$atividade->id}}" id="id-atividade"> --}}
                         <div class="row">
                             <input type="hidden" value="">
                             <div class="col-12">

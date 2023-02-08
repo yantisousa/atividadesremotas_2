@@ -37,7 +37,7 @@
             </div>
         @endif
     <div class="container conteiner-login">
-        <div class="row coluna-login">
+        <div class="row coluna-login">produtos/MVRBmaAV5yLdieHbPWJGQpppyZJoGsunEgcfK2GB.jpg
             <div class="col-md-4 offset-md-4 align-self-center "
                 style="background-color: white; height:400px; border-radius: 10px; box-shadow:0 0px 3px #67736b;">
                 <form action="{{route('atividades.store', $disciplinasID)}}" method="POST" class="form-login" enctype="multipart/form-data">
@@ -80,7 +80,6 @@
                         console.error( error );
                 } );
 </script>
-    {{-- <button class="btn btn-info"><a href="{{route('atividades.index')}}">Ver Atividades</a></button> --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"

@@ -10,4 +10,8 @@ class activities_responses extends Model
     use HasFactory;
     protected $table;
     protected $fillable = ['activity_id', 'student_id', 'check', 'filepath', 'description'];
+
+    public function userResponse(){
+        return $this->belongsTo(User::class, 'student_id', 'id');
+    }
 }
