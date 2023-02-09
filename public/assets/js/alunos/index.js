@@ -26,3 +26,13 @@ function atividadesPendentes(id){
         }
     })
 }
+function visualizarImage(id){
+    $.ajax({
+        url: '/alunos/atividades/image/' + id,
+        type: 'get',
+        success: function(dados){
+            console.log(dados.filepath);
+            $('#image').append(dados.filepath)
+        }
+    })
+}

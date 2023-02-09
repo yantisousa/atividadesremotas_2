@@ -26,7 +26,10 @@ class AlunosCreateController extends Controller
 
         return view('alunos.atividades');
     }
-
+    public function visualizarImage($id){
+        $imageActive = activities_responses::find($id);
+        return $imageActive;
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -75,10 +78,10 @@ class AlunosCreateController extends Controller
     public function show(Request $request, $id)
     {
         if($request->manipulador == 2){
-            
+
             $atividadesFeitasCount = activities_responses::where('student_id', $id)->where('check', 0)->count();
             return $atividadesFeitasCount;
-            
+
         }else{
             $atividadesFeitasCount = activities_responses::where('student_id', $id)->where('check', 1)->count();
             $atividades = Activities::where('status', 2)->get();

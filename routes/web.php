@@ -41,6 +41,7 @@ Route::middleware('autenticador')->group(function(){
     Route::get('/atividadades/respondida/{id}', [AtividadesController::class, 'createResposta'])->name('atividades.respondida');
     Route::post('/atividades/respondida/store/{id}', [AtividadesController::class, 'resposta'])->name('resposta');
     Route::get('/alunos/atividades/{id}', [AlunosCreateController::class, 'index'])->name('alunos.index');
+    Route::get('/alunos/atividades/image/{id}', [AlunosCreateController::class, 'visualizarImage'])->name('alunos.image');
     Route::get('/alunos/atividades/niveis/{id}', [AlunosCreateController::class, 'show'])->name('alunos.show');
 });
 Route::get('/', [HomeController::class, 'index']);
