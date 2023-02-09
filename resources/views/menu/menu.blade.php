@@ -22,7 +22,10 @@
                             {{ Auth::user()->name }}
 
                         </a>
-                       
+                        @if(Auth::user()->roles_id == 2)
+                        <a href="{{ route('alunos.index', Auth::user()->id) }}" class="list-group-item list-group-item-action"
+                        >Minhas Atividades </a>
+                        @endif
                         @if (Auth::user()->roles_id == 1)
                         <a href="{{ route('disciplines.create') }}" class="list-group-item list-group-item-action"
                        >Criar Disciplina</a>

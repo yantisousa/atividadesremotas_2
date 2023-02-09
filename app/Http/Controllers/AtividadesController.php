@@ -62,7 +62,9 @@ class AtividadesController extends Controller
             'description' => $request->description,
             'status' => 1,
         ]);
-
+      
+      
+      
         $filepath = "public/professores/{$idProfessor}/atividades/{$atividade->id}.html";
 
         Storage::disk('local')->put($filepath, $request->filepath);

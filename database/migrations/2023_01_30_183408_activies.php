@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('teacher_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('student_id')->constrained('users');
             $table->foreignId('discipline_id')->constrained('disciplines')->onDelete('cascade');
             $table->string('name');
             $table->string('filepath');

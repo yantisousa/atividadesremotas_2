@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activities;
+use App\Models\activities_responses;
+use App\Models\Disciplines;
 use App\Models\Students;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -15,9 +19,12 @@ class AlunosCreateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $atividades = activities_responses::where('student_id', $id)->where('check', 0)->get();
+        return view('alunos.atividades', compact('atividades'));
+
+        return view('alunos.atividades');
     }
 
     /**
@@ -54,7 +61,7 @@ class AlunosCreateController extends Controller
     }
     public function login(Request $request)
     {
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect()->route('disciplines.index');
         }
     }
@@ -65,11 +72,20 @@ class AlunosCreateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        if($request->manipulador == 2){
+            
+            $atividadesFeitasCount = activities_responses::where('student_id', $id)->where('check', 0)->count();
+            return $atividadesFeitasCount;
+            
+        }else{
+            $atividadesFeitasCount = activities_responses::where('student_id', $id)->where('check', 1)->count();
+            $atividades = Activities::where('status', 2)->get();
+            return $atividadesFeitasCount;
+            return $atividades;
+        }
     }
-
     /**
      * Show the form for editing the specified resource.
      *
