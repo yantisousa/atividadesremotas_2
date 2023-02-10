@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Disciplines;
+use App\Models\activities_responses;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class DisciplinesController extends Controller
+class ResponseAlunosController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $disciplines = Disciplines::get();
-        $disciplinesCount = Disciplines::get();
-        return view('disciplines.index', compact('disciplines', 'disciplinesCount'));
+        $buscarAlunos = activities_responses::where('activity_id', $id)->get()->toArray();
+        dd($buscarAlunos);
+        return view('response.alunos', compact('buscarAlunos'));
     }
 
     /**
@@ -26,7 +27,7 @@ class DisciplinesController extends Controller
      */
     public function create()
     {
-        return view('disciplines.create');
+        //
     }
 
     /**
@@ -37,8 +38,7 @@ class DisciplinesController extends Controller
      */
     public function store(Request $request)
     {
-        Disciplines::create($request->all());
-        return redirect()->route('disciplines.index');
+        //
     }
 
     /**
@@ -60,8 +60,7 @@ class DisciplinesController extends Controller
      */
     public function edit($id)
     {
-        $disciplines = Disciplines::find($id);
-        return view('disciplines.edit', compact('disciplines'));
+        //
     }
 
     /**
@@ -73,9 +72,7 @@ class DisciplinesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dados = Disciplines::find($id);
-        $dados->update($request->all());
-        return redirect()->route('disciplines.index');
+        //
     }
 
     /**
@@ -86,7 +83,6 @@ class DisciplinesController extends Controller
      */
     public function destroy($id)
     {
-        $deletar = Disciplines::find($id);
-        $deletar->delete();
+        //
     }
 }

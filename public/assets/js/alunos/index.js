@@ -27,12 +27,17 @@ function atividadesPendentes(id){
     })
 }
 function visualizarImage(id){
+    var url_atual = window.location.href;
+    var url_new = url_atual.split('alunos/atividades/');
     $.ajax({
         url: '/alunos/atividades/image/' + id,
         type: 'get',
         success: function(dados){
-            console.log(dados.filepath);
-            $('#image').append(dados.filepath)
+            console.log(url_atual);
+            $('#image').attr("src", `${url_new[0]}storage/${dados.filepath}`)
         }
     })
 }
+// $('#open-modal').click(() => {
+//     $('.modal').addClass('is-active');
+// })

@@ -60,17 +60,20 @@
                             <li class="list-group-item"><button class="btn btn-primary"><a
                                         href="{{ route('atividades.responder', $atividade->id) }}">Ver
                                         Atividade</a></button></li>
-                            @if (Auth::user()->roles_id == 2)
-                                <li class="list-group-item"><button  class="btn btn-primary"><a href="{{route('atividades.respondida', $atividade->id)}}">Enviar</a></button>
-                                </li>
-                            @elseif(Auth::user()->roles_id == 2 && $users->studentResponse->check == 0)
-                                <li class="list-group-item"><button  class="btn btn-primary">Atividade Enviada</button>
-                                </li>
+                            @if (Auth::user()->roles_id == 2 && in_array($atividade->id ,$activities))
+                            <li class="list-group-item"><button  class="btn btn-success">Atividade Enviada</button>
+                            </li>
+                            @elseif(Auth::user()->roles_id == 2  )
+                            <li class="list-group-item"><button  class="btn btn-primary"><a href="{{route('atividades.respondida', $atividade->id)}}">Enviar</a></button>
+                            </li>
                             @endif
                             @if (Auth::user()->roles_id == 1)
-                                <li class="list-group-item"><button class="btn btn-info"
+                            <li class="list-group-item"><button class="btn btn-primary"
+                                onclick="editar({{ $atividade->id }})"> <a
+                                    href="{{ route('atividades.edit', $atividade->id) }}">Editar</a> </button>
+                                <li class="list-group-item"><button class="btn btn-primary"
                                         onclick="editar({{ $atividade->id }})"> <a
-                                            href="{{ route('atividades.edit', $atividade->id) }}">Editar</a> </button>
+                                            href="{{ route('response.index', $atividade->id) }}">Alunos</a> </button>
                                 </li>
                                 <li class="list-group-item"><button class="btn btn-danger"><a
                                             href="{{ route('atividades.destroy', $atividade->id) }}">Excluir</a>

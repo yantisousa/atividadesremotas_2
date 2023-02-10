@@ -21,14 +21,24 @@ class AtividadesController extends Controller
     public function index(Request $request, $id)
     {
         $users = User::find(Auth::user()->id);
+        $activities = activities_responses::where('student_id', $users->id)->get();
+        // if(!empty($activities)){
+        //     dd($activities->toArray());
+
+        // }
         $disciplinasID = Disciplines::find($id);
         $idProfessor = Auth::user()->id;
         if (Auth::user()->roles_id == 1 ) {
             $atividades = Activities::where('teacher_id', $idProfessor)->where('discipline_id', $id)->get();
+            
             return view('atividades.index', compact('atividades', 'disciplinasID'));
         } else {
-            $atividades = Activities::where('discipline_id', $id)->where('status', 1)->get();
-            return view('atividades.index', compact('atividades', 'disciplinasID', 'users'));
+            $atividades = Activities::where('discipline_id', $id)->get();
+            $users = User::find(Auth::user()->id);
+            $activities = activities_responses::where('student_id', $users->id)->get()->map( function($item) {
+                return $item->activity_id;
+            })->toArray();
+            return view('atividades.index', compact('atividades', 'disciplinasID', 'users', 'activities'));
         }
     }
 

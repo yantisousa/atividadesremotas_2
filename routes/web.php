@@ -6,6 +6,7 @@ use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\DisciplinesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ResponseAlunosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +44,8 @@ Route::middleware('autenticador')->group(function(){
     Route::get('/alunos/atividades/{id}', [AlunosCreateController::class, 'index'])->name('alunos.index');
     Route::get('/alunos/atividades/image/{id}', [AlunosCreateController::class, 'visualizarImage'])->name('alunos.image');
     Route::get('/alunos/atividades/niveis/{id}', [AlunosCreateController::class, 'show'])->name('alunos.show');
+    Route::get('alunos/atividades/edit/{id}', [AlunosCreateController::class,'edit'])->name('alunos.edit');
+    Route::get('response/alunos/{id}', [ResponseAlunosController::class,'index'])->name('response.index');
 });
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/login', function(){
