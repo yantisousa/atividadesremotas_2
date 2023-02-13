@@ -7,8 +7,8 @@ function atividadesFeitas(id){
             manipulador,
         },
         success: function(dados){
-            $('#title2').text(dados);
             console.log(dados);
+            $('#title2').text(dados);
         }
     })
 }
@@ -21,7 +21,6 @@ function atividadesPendentes(id){
             manipulador,
         },
         success: function(dados){
-            console.log(dados);
             $('#title1').text(dados);
         }
     })
@@ -50,12 +49,14 @@ function visualizarImageAtividadesProfessor(id){
     })
 
 }
-var checkbox = $('.check');
-if(checkbox.is(":checked")) {
-    console.log("O cliente marcou o checkbox");
-} else {
-    console.log("O cliente não marcou o checkbox");
+$('#notas').click(function(){
+    $('#notas').addClass('is-active');
+    $('#feitos').removeClass('is-active');
+})
+$('#feitos').click(function(){
+    $('#feitos').addClass('is-active');
+    $('#notas').removeClass('is-active');
+})
+if($('.is-active')){
+    console.log('ativo');
 }
-
-
-

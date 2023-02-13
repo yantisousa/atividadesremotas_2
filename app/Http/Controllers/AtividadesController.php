@@ -22,10 +22,6 @@ class AtividadesController extends Controller
     {
         $users = User::find(Auth::user()->id);
         $activities = activities_responses::where('user_id', $users->id)->get();
-        // if(!empty($activities)){
-        //     dd($activities->toArray());
-
-        // }
         $disciplinasID = Disciplines::find($id);
         $idProfessor = Auth::user()->id;
         if (Auth::user()->roles_id == 1 ) {

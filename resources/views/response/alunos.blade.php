@@ -1,11 +1,20 @@
+
 @extends('menu.menu')
 @section('content')
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: "Poppins"
+        }
+    </style>
     <h1 style="text-align: center;">Alunos que fizeram a atividade</h1>
     <div class="columns">
         @foreach ($buscarAlunos as $alunos)
@@ -36,7 +45,8 @@
                                     </a>
                                     <button class="js-modal-trigger btn btn-primary"
                                         onclick="visualizarImageAtividadesProfessor({{ $alunos->id }})"
-                                        data-target="modal-js-example" class=""><i class="bi bi-envelope-open"></i>
+                                        data-target="modal-js-example" class=""><i class="bi bi-arrows-fullscreen"></i>
+                                    </i>
                                         </i>
 
                                     </button>
@@ -45,6 +55,11 @@
                                             <i class="fas fa-retweet" aria-hidden="true"></i>
                                         </span>
                                     </a>
+                                    @if($alunos->notes < 10)
+                                        <button id="notas" >
+                                          <b>Nota: </b>  <input  type="button" value="{{$alunos->note}}">
+                                        </button>
+                                    @endif
                                     <a class="level-item" aria-label="like">
                                         <span class="icon is-small">
                                             <i class="fas fa-heart" aria-hidden="true"></i>

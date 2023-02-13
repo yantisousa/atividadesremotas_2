@@ -21,15 +21,19 @@ class AlunosCreateController extends Controller
      */
     public function index($id)
     {
-        $atividades = activities_responses::where('user_id', $id)->where('check', 0)->get();
-        return view('alunos.atividades', compact('atividades'));
+        $atividades = activities_responses::orderBy('check', 'desc')->where('user_id', $id)->get();
+        $atividadesNotes = activities_responses::where('user_id', $id)->where('note', '!=', null)->get()->map( function($item){
+            return $item->id;
+        })->toArray();
+        return view('alunos.atividades', compact('atividades', 'atividadesNotes'));
 
         return view('alunos.atividades');
     }
+
     public function visualizarImage($id){
         $imageActive = activities_responses::find($id);
         return $imageActive;
-    }
+    }   
     /**
      * Show the form for creating a new resource.
      *
@@ -79,7 +83,7 @@ class AlunosCreateController extends Controller
     {
         if($request->manipulador == 2){
 
-            $atividadesFeitasCount = activities_responses::where('user_id', $id)->where('check', 0)->count();
+            $atividadesFeitasCount = activities_responses::where('user_id', $id)->count();
             return $atividadesFeitasCount;
 
         }else{

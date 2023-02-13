@@ -10,6 +10,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     </head>
     <style>
         .table {
@@ -67,10 +68,11 @@
                                 </td>
                                 @if (Auth::user()->roles_id == 1)
                                 <td><button class="btn btn-info btn-edit"> <a
-                                    href="{{ route('disciplines.edit', $disciplina->id) }}">Editar</a></button>
+                                    href="{{ route('disciplines.edit', $disciplina->id) }}"><i class="bi bi-pencil"></i>
+                                </a></button>
                                 </td>
                                 <td><button class="btn btn-danger"
-                                    onclick="excluir({{ $disciplina->id }})">Excluir
+                                    onclick="excluir({{ $disciplina->id }})"><i class="bi bi-trash3"></i>
                                             </button></td>
                                             @endif
                                         </tr>
