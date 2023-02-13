@@ -33,7 +33,7 @@ class AlunosCreateController extends Controller
     public function visualizarImage($id){
         $imageActive = activities_responses::find($id);
         return $imageActive;
-    }   
+    }
     /**
      * Show the form for creating a new resource.
      *

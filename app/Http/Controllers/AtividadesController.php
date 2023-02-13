@@ -157,7 +157,6 @@ $aluno = Auth::user()->id;
             'activity_id' => $id,
             'user_id' => $aluno,
             'check' => 0,
-            'note' => 0,
             'filepath' => $request->filepath,
             'description' => $request->description,
         ]);

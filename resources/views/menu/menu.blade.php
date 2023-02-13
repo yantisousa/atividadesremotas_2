@@ -7,9 +7,9 @@
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 
-<nav style="background-color: #2397f3;" class="navbar" role="navigation" aria-label="main navigation">
+<nav style="background-color: #006494;" class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item">
+      <a class="navbar-item" href="{{ route('disciplines.index') }}">
         <img src="{{ url('assets/img/logo.png') }}" width="30" height="58">
       </a>
       <i class="material-icons" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
@@ -18,6 +18,7 @@
 
     </div>
   </nav>
+    @if(Auth::user())
 
     <div class="container-fluid">
             <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
@@ -98,6 +99,8 @@
       </div>
     </div>
   </div>
+  @endif
+
 <!-- As a heading -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"

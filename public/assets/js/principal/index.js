@@ -1,8 +1,21 @@
-$('#inlineRadio1').click(function(){
-    $('#professores').hide();
+$('#student-click').click(function(){
+    $('#student-click').addClass('is-active');
+    $('#teacher-click').removeClass('is-active');
+    if($('.active')){
+        $('#professores').hide();
     $('#alunos').show();
+    }
+
 })
-$('#inlineRadio2').click(function(){
-    $('#alunos').hide();
-    $('#professores').show();
+$('#teacher-click').click(function(){
+    $('#teacher-click').addClass('is-active');
+    $('#student-click').removeClass('is-active');
+    if($('.active')){
+        $('#alunos').hide();
+        $('#professores').show();
+    }
+
 })
+// $('.active').click(() => {
+//     alert('ok');
+// })

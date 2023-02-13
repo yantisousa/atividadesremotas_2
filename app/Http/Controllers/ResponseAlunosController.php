@@ -16,6 +16,8 @@ class ResponseAlunosController extends Controller
      */
     public function index($id)
     {
+        // $users = User::with('student')->get()->where('activity_id', $id);
+        // dd($users);
         $buscarAlunos = activities_responses::with('user')->get()->where('activity_id', $id);
         return view('response.alunos', compact('buscarAlunos'));
     }
@@ -44,12 +46,10 @@ class ResponseAlunosController extends Controller
     public function store(Request $request, $id)
     {
         $checkoutActivities = activities_responses::find($id);
-        $id = $checkoutActivities->activity_id;
         $checkoutActivities->update([
             'check' => 1,
             'note' => $request->note
         ]);
-        return redirect()->route('response.index', compact('id'));
     }
 
     /**

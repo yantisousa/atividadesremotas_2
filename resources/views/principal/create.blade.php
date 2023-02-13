@@ -1,3 +1,6 @@
+@extends('menu.menu')
+@section('content')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
 <style>
     body {
@@ -28,9 +31,17 @@
     .btn-cadastro {
         text-decoration: none;
     }
+    .full {
+        box-shadow:
+    }
 </style>
-
-<div class="container text-center" style="position:relative; top: 80px ">
+<div class="tabs is-centered">
+    <ul>
+      <li class="aluno active is-active" id="student-click"><a>Alunos</a></li>
+      <li class="professor active" id="teacher-click"><a>Professores</a></li>
+    </ul>
+  </div>
+{{-- <div class="container text-center" style="position:relative; top: 80px ">
     <div class="row align-items-start">
       <div class="col">
         <b>Você é:</b>
@@ -44,9 +55,55 @@
             </div>
     </div>
     </div>
+  </div> --}}
+<br><br><br><br>
+<div id="alunos" class="container text-center full"style=" height: 600px; border-radius: 10px; box-shadow: 22px 36px 44px -8px rgba(0,0,0,0.1);">
+    <div class="row align-items-center" >
+      <div class="col" style="border-radius: 10px; height: 600px; background-color: #006494; ">
+        <img src="{{ url('assets/img/logo.png') }}" class="img-fluid" alt="..." style="width: 300px; margin-top: 140px; position:relative; left: 10px">
+      </div>
+      <div class="col">
+          <h1>Login dos Alunos</h1>
+        <form action="{{ route('alunos.login') }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <input name="email" type="email" placeholder="Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-3">
+                <input name="password" type="password" placeholder="Senha"  class="form-control" id="exampleInputPassword1">
+              </div>
+              <button type="submit" class="btn btn-primary" style="background-color: #f4e208; border: none; color: black;"><b>Entrar</b> </button>
+            </form>
+          </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="professores" class="container text-center full"style=" height: 600px; border-radius: 10px; box-shadow: 22px 36px 44px -8px rgba(0,0,0,0.1); display: none;">
+    <div class="row align-items-center" >
+      <div class="col" style="border-radius: 10px; height: 600px; background-color: #006494; ">
+        <img src="{{ url('assets/img/logo.png') }}" class="img-fluid" alt="..." style="width: 300px; margin-top: 140px; position:relative; left: 10px">
+      </div>
+      <div class="col">
+        <form action="{{ route('login.store') }}" method="POST">
+            @csrf
+            <h1>Login dos Professores</h1>
+            <div class="mb-3">
+                <input type="email" name="email" placeholder="Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-3">
+                <input type="password" name="password" placeholder="Senha"  class="form-control" id="exampleInputPassword1">
+              </div>
+              <button type="submit" class="btn btn-primary" style="background-color: #f4e208; border: none; color: black;"><b>Entrar</b> </button>
+            </form>
+          </form>
+      </div>
+    </div>
   </div>
 
 
+
+{{--
 <div class="container conteiner-login" id="professores" style="display:none">
     <div class="row coluna-login">
         <div class="col-md-4 offset-md-4 align-self-center "
@@ -115,7 +172,7 @@
         </div>
 
     </div>
-</div>
+</div>  --}}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
@@ -123,3 +180,4 @@
 </script>
 <script src="/assets/js/jquery.js"></script>
 <script src="/assets/js/principal/index.js"></script>
+@endsection
