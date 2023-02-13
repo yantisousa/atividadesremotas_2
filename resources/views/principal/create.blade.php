@@ -81,22 +81,23 @@
 
   <div id="professores" class="container text-center full"style=" height: 600px; border-radius: 10px; box-shadow: 22px 36px 44px -8px rgba(0,0,0,0.1); display: none;">
     <div class="row align-items-center" >
+        <div class="col">
+          <form action="{{ route('login.store') }}" method="POST">
+              @csrf
+              <h1>Login dos Professores</h1>
+              <div class="mb-3">
+                  <input type="email" name="email" placeholder="Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                  <input type="password" name="password" placeholder="Senha"  class="form-control" id="exampleInputPassword1">
+                </div>
+                <button type="submit" class="btn btn-primary" style="background-color: #f4e208; border: none; color: black;"><b>Entrar</b> </button>
+              </form>
+            </form>
+        </div>
+
       <div class="col" style="border-radius: 10px; height: 600px; background-color: #006494; ">
         <img src="{{ url('assets/img/logo.png') }}" class="img-fluid" alt="..." style="width: 300px; margin-top: 140px; position:relative; left: 10px">
-      </div>
-      <div class="col">
-        <form action="{{ route('login.store') }}" method="POST">
-            @csrf
-            <h1>Login dos Professores</h1>
-            <div class="mb-3">
-                <input type="email" name="email" placeholder="Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-              </div>
-              <div class="mb-3">
-                <input type="password" name="password" placeholder="Senha"  class="form-control" id="exampleInputPassword1">
-              </div>
-              <button type="submit" class="btn btn-primary" style="background-color: #f4e208; border: none; color: black;"><b>Entrar</b> </button>
-            </form>
-          </form>
       </div>
     </div>
   </div>
