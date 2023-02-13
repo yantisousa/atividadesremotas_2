@@ -15,7 +15,7 @@ class Activities extends Model
         return $this->hasOne(Teachers::class, 'teacher_id');
     }
     public function disciplineModel(){
-        return $this->hasOne(Disciplines::class, 'id', 'discipline_id');
+        return $this->hasOne(Disciplines::class);
     }
     public function activityresponseRelationship(){
         return $this->hasMany(activities_responses::class, 'activity_id',  'id');

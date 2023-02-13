@@ -58,7 +58,8 @@
                             @forelse ($disciplines as $disciplina)
                             <tr>
                                 <td>{{ $disciplina->name }}</td>
-                                <td><a
+                                <td>
+                                    <a
                                     href="{{ route('atividades.index', $disciplina->id) }}"><button type="button" class="btn btn-warning">
                                         Atividades
                                         </span>

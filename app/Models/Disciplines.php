@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Disciplines extends Model
 {
     use HasFactory;
-    protected $table;
+    protected $table = 'disciplines';
     protected $fillable = ['name'];
+    public function activityModel(){
+        return $this->belongsTo(Activities::class);
+    }
 }

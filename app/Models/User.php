@@ -21,7 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'active', 
+        'active',
         'roles_id'
     ];
 
@@ -46,7 +46,7 @@ class User extends Authenticatable
     public function rolesModel(){
         return $this->hasOne(Roles::class, 'roles_id');
     }
-    public function studentResponse(){
-        return $this->hasOne(activities_responses::class, 'student_id', 'id');
+    public function student(){
+        return $this->hasMany(activities_responses::class);
     }
 }

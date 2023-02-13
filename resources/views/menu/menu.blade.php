@@ -5,11 +5,21 @@
         width: 500px;
     }
 </style>
-<nav class="navbar bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <i class="material-icons" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+<nav style="background-color: #2397f3;" class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item">
+        <img src="{{ url('assets/img/logo.png') }}" width="30" height="58">
+      </a>
+      <i class="material-icons" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                 aria-controls="offcanvasExample">menu</i>
+
+
+    </div>
+  </nav>
+
+    <div class="container-fluid">
             <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
                 aria-labelledby="offcanvasExampleLabel">
                 <div class="offcanvas-header">
@@ -43,18 +53,12 @@
 
             </ul>
 
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                </button>
-            </div>
 
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" onclick="logout({{ Auth::user()->id }})"></a></li>
     </div>
 
     </a>
-    </div>
 </nav>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -74,7 +78,7 @@
                   <input type="email" class="form-control" value="{{ Auth::user()->email }}" disabled id="exampleInputPassword1">
                 </div>
                 @if(Auth::user()->roles_id == 1)
-              
+
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Eu sou:</label>
                   <input type="email" class="form-control" value="Professor(a)" disabled id="exampleInputPassword1">

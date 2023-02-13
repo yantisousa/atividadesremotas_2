@@ -21,7 +21,7 @@ class AlunosCreateController extends Controller
      */
     public function index($id)
     {
-        $atividades = activities_responses::where('student_id', $id)->where('check', 0)->get();
+        $atividades = activities_responses::where('user_id', $id)->where('check', 0)->get();
         return view('alunos.atividades', compact('atividades'));
 
         return view('alunos.atividades');
@@ -79,11 +79,11 @@ class AlunosCreateController extends Controller
     {
         if($request->manipulador == 2){
 
-            $atividadesFeitasCount = activities_responses::where('student_id', $id)->where('check', 0)->count();
+            $atividadesFeitasCount = activities_responses::where('user_id', $id)->where('check', 0)->count();
             return $atividadesFeitasCount;
 
         }else{
-            $atividadesFeitasCount = activities_responses::where('student_id', $id)->where('check', 1)->count();
+            $atividadesFeitasCount = activities_responses::where('user_id', $id)->where('check', 1)->count();
             $atividades = Activities::where('status', 2)->get();
             return $atividadesFeitasCount;
             return $atividades;
