@@ -7,6 +7,7 @@ use App\Http\Controllers\DisciplinesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ResponseAlunosController;
+use App\Models\Disciplines;
 use Illuminate\Support\Facades\Route;
 
 /*

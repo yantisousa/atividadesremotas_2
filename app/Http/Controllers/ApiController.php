@@ -4,37 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\Activities;
 use App\Models\activities_responses;
+use App\Models\Disciplines;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class ResponseAlunosController extends Controller
+class ApiController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        // $users = User::with('student')->get()->where('activities_id', $id);
-        // dd($users);
-        $buscarAlunos = activities_responses::with('user')->get()->where('activities_id', $id);
-        return view('response.alunos', compact('buscarAlunos'));
     }
-
-    public function image($id){
-        $activitiesImage = activities_responses::find($id);
-        return $activitiesImage;
-    }
+    
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-        $checkoutActivities = activities_responses::find($id);
-        return view('response.create', compact('checkoutActivities'));
     }
 
     /**
@@ -43,13 +34,9 @@ class ResponseAlunosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
-        $checkoutActivities = activities_responses::find($id);
-        $checkoutActivities->update([
-            'check' => 1,
-            'note' => $request->note
-        ]);
+return response()->json(activities_responses::create($request->all()), 201);
     }
 
     /**
@@ -58,9 +45,15 @@ class ResponseAlunosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $disciplines)
     {
-        //
+        $disciplines = Disciplines::find($disciplines);
+        if($disciplines === null){
+            return response()->json(['message' => 'Series not found'], 404);
+        }
+        return $disciplines;
+        // $series = Activities::whereId($id)->with('activity')->get();  
+        // return $series;
     }
 
     /**
@@ -81,10 +74,12 @@ class ResponseAlunosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Disciplines $disciplines, Request $request, $id)
     {
-        //
+        $disciplines->find($id)->update($request->all());
+        return $disciplines;
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -92,8 +87,9 @@ class ResponseAlunosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $disciplines)
     {
-        //
+        Disciplines::destroy($disciplines);
+        return response()->noContent();
     }
 }

@@ -32,7 +32,7 @@ class AtividadesController extends Controller
             $atividades = Activities::where('discipline_id', $id)->get();
             $users = User::find(Auth::user()->id);
             $activities = activities_responses::where('user_id', $users->id)->get()->map( function($item) {
-                return $item->activity_id;
+                return $item->activities_id;
             })->toArray();
             return view('atividades.index', compact('atividades', 'disciplinasID', 'users', 'activities'));
         }
@@ -154,7 +154,7 @@ class AtividadesController extends Controller
         $request->filepath = $request->filepath->store('produtos', 'public');
 $aluno = Auth::user()->id;
         activities_responses::create([
-            'activity_id' => $id,
+            'activities_id' => $id,
             'user_id' => $aluno,
             'check' => 0,
             'filepath' => $request->filepath,
