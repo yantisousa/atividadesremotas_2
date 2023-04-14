@@ -25,7 +25,8 @@ class AlunosCreateController extends Controller
         $atividadesNotes = activities_responses::where('user_id', $id)->where('note', '!=', null)->get()->map( function($item){
             return $item->id;
         })->toArray();
-        return view('alunos.atividades', compact('atividades', 'atividadesNotes'));
+        $disciplinas = Disciplines::all();
+        return view('alunos.atividades', compact('atividades', 'atividadesNotes', 'disciplinas'));
 
         return view('alunos.atividades');
     }
@@ -101,7 +102,8 @@ class AlunosCreateController extends Controller
      */
     public function edit($id)
     {
-        dd($id);
+        $atividades = activities_responses::find($id);
+        return view('alunos.edit', compact('atividades'));
     }
 
     /**
@@ -113,7 +115,13 @@ class AlunosCreateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $atividades = activities_responses::find($id);
+        $imagem = $request->filepath->store('produtos', 'public');
+        $atividades->update([
+            'filepath' =>   $imagem,
+            'description' => $request->description
+        ]);
+        return redirect()->back();
     }
 
     /**
@@ -124,6 +132,7 @@ class AlunosCreateController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $atividades = activities_responses::find($id)->delete();
+
     }
 }

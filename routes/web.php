@@ -4,11 +4,14 @@ use App\Http\Controllers\AlunosCreateController;
 use App\Http\Controllers\AtividadesController;
 use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\DisciplinesController;
+use App\Http\Controllers\FullCalendarController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\QuadroDeHorariosController;
 use App\Http\Controllers\ResponseAlunosController;
 use App\Models\Disciplines;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Contracts\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,20 +40,25 @@ Route::middleware('autenticador')->group(function(){
     Route::get('/atividades/edit/{id}', [AtividadesController::class, 'edit'])->name('atividades.edit');
     Route::put('/atividades/update/{id}', [AtividadesController::class, 'update'])->name('atividades.update');
     Route::get('/atividades/destroy/{id}', [AtividadesController::class, 'destroy'])->name('atividades.destroy');
-    Route::get('/cadastro/aluno', [AlunosCreateController::class, 'create'])->name('alunos.create');
     Route::get('/destroy/professor/{id}', [LoginController::class, 'destroy'])->name('professores.destroy');
     Route::get('/atividades/responder/{id}', [AtividadesController::class, 'retornarActivities'])->name('atividades.responder');
     Route::get('/atividadades/respondida/{id}', [AtividadesController::class, 'createResposta'])->name('atividades.respondida');
     Route::post('/atividades/respondida/store/{id}', [AtividadesController::class, 'resposta'])->name('resposta');
+
+    Route::get('/cadastro/aluno', [AlunosCreateController::class, 'create'])->name('alunos.create');
     Route::get('/alunos/atividades/{id}', [AlunosCreateController::class, 'index'])->name('alunos.index');
     Route::get('/alunos/atividades/image/{id}', [AlunosCreateController::class, 'visualizarImage'])->name('alunos.image');
     Route::get('/alunos/atividades/niveis/{id}', [AlunosCreateController::class, 'show'])->name('alunos.show');
     Route::get('alunos/atividades/edit/{id}', [AlunosCreateController::class,'edit'])->name('alunos.edit');
+    Route::put('/alunos/update/{id}', [AlunosCreateController::class, 'update'])->name('alunos.update');
+    Route::get('/alunos/destroy/atividade/{id}', [AlunosCreateController::class, 'destroy'])->name('alunos.destroy');
+
     Route::get('response/alunos/{id}', [ResponseAlunosController::class,'index'])->name('response.index');
     Route::get('/atividade/professores/alunos/{id}', [ResponseAlunosController::class, 'image'])->name('response.image');
     Route::get('/professores/notes/alunos/{id}', [ResponseAlunosController::class, 'create'])->name('response.create');
     Route::post('/professores/notes/alunos/store/{id}', [ResponseAlunosController::class, 'store'])->name('response.store');
-
+    //QUADRO DE HORÁRIOS
+    Route::get('/horarios/index', [QuadroDeHorariosController::class, 'index'])->name('horarios.index');
 });
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/login', function(){

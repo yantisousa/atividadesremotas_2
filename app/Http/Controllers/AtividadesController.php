@@ -20,6 +20,7 @@ class AtividadesController extends Controller
      */
     public function index(Request $request, $id)
     {
+        // dd($id);
         $users = User::find(Auth::user()->id);
         $activities = activities_responses::where('user_id', $users->id)->get();
         $disciplinasID = Disciplines::find($id);

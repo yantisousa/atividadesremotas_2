@@ -10,7 +10,9 @@ class Disciplines extends Model
     use HasFactory;
     protected $table = 'disciplines';
     protected $fillable = ['name'];
+
     public function activityModel(){
-        return $this->belongsTo(Activities::class);
+        return $this->hasMany(Activities::class, 'id', 'discipline_id');
     }
+
 }

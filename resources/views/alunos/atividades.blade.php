@@ -18,28 +18,39 @@
                 </div>
             </div>
         </nav>
-        <div class="tabs is-centered">
+        <div class="tabs is-centered" style="margin-right: 30px">
             <ul>
-              <li id="feitos" class="is-active" ><a>Feitos</a></li>
-              <li id="notas"><a>Notas</a></li>
-             
+            <div class="select">
+                <select id="disciplinas">
+                    <option value="0">Todos</option>
+            @foreach($disciplinas as $disciplina)
+                <option value="{{$disciplina->id}}">{{$disciplina->name}}</option>
+            @endforeach
+                </select>
+            </div>
             </ul>
           </div>
         <div class="container text-center">
             <div class="row align-items-start">
-             
+
             @forelse ($atividades as $atividade)
                 <div class="col">
                     <div class="card" style="width: 18rem;">
-                        <img onclick="visualizarImage({{ $atividade->id }})" class="js-modal-trigger"
+                        <img onclick="visualizarImage({{ $atividade->id }})" class="js-modal-trigger img-thumbnail"
                         data-target="modal-js-example" src="{{ url('storage/', $atividade->filepath) }}">
                         <div class="card-body">
                         <h5 class="card-title"></h5>
                         <p class="card-text">{{$atividade->description}}</p>
                         <b>Dia da Postagem: </b>{{ date('d/m/Y', strtotime($atividade->created_at)) }}
-                      
+
                         @if (in_array($atividade->id, $atividadesNotes))
-                            <h6> <span style="color: red;">Você não pode fazer outras ações, suas notas já foram lançadas! </span><b>Nota:{{$atividade->note}}</b> </h6>
+                            <h6><b>
+                                @if($atividade->note >= 6)
+                                    <span style="color: green"> Nota:{{$atividade->note}}</span>
+                                @else
+                                    <span style="color: red"> Nota:{{$atividade->note}}</span>
+                                @endif
+                            </b> </h6>
                         @else
                         <button class="button is-link">
                             <a style="text-decoration: none; color: white;"
@@ -49,13 +60,13 @@
                                 id="editar"> <a href="{{ route('alunos.edit', $atividade->id) }}"><i
                                         class="bi bi-pencil"></i>
                                 </a></button>
-                            <button class="button is-danger"><i class="bi bi-trash3"></i>
+                            <button class="button is-danger" onclick="deletarAtividade({{$atividade->id}})"><i class="bi bi-trash3"></i>
                             </button>
                         @endif
                         </div>
                     </div>
-            
-            
+
+
 
                 </div>
             @empty
@@ -63,7 +74,7 @@
             @endforelse
             </div>
           </div>
-       
+
 
     <div class="modal" id="modal-js-example">
         <div class="modal-background"></div>

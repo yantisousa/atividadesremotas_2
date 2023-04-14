@@ -41,21 +41,6 @@
       <li class="professor active" id="teacher-click"><a>Professores</a></li>
     </ul>
   </div>
-{{-- <div class="container text-center" style="position:relative; top: 80px ">
-    <div class="row align-items-start">
-      <div class="col">
-        <b>Você é:</b>
-          <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-              <label class="form-check-label" for="inlineRadio1">Aluno</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-              <label class="form-check-label" for="inlineRadio2">Professor</label>
-            </div>
-    </div>
-    </div>
-  </div> --}}
   <br><br>
 <div id="alunos" class="container text-center full"style=" height: 500px; border-radius: 10px; box-shadow: 22px 36px 44px -8px rgba(0,0,0,0.1);">
     <div class="row align-items-center" >
@@ -101,7 +86,7 @@
       </div>
     </div>
   </div>
-                                
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"

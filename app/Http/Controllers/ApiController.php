@@ -6,6 +6,7 @@ use App\Models\Activities;
 use App\Models\activities_responses;
 use App\Models\Disciplines;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -15,8 +16,13 @@ class ApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = Disciplines::query();
+        if($request->has('name')){
+            $query->where('name', $request->name);
+        }
+        return $query->paginate(1);
     }
     
     /**
@@ -91,5 +97,12 @@ return response()->json(activities_responses::create($request->all()), 201);
     {
         Disciplines::destroy($disciplines);
         return response()->noContent();
+    }
+
+    protected function firstName(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($check) => (bool) $check, 
+        );
     }
 }

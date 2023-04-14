@@ -49,6 +49,33 @@ function visualizarImageAtividadesProfessor(id){
     })
 
 }
+function deletarAtividade(id)
+{
+    $.ajax({
+        url: `/alunos/destroy/atividade/${id}`,
+        type: 'get',
+        success: function(dados){
+            location.reload();
+        }
+    })
+    console.log(id);
+}
+function mudaDisciplina(id){
+   let disciplinas = $('#disciplinas').val();
+   $.ajax({
+        url: `/alunos/atividades/${id}`,
+        data: {
+            disciplinas
+        },
+        type: 'get',
+        success: function(dados){
+            console.log(dados);
+        }
+    });
+}
+$('#disciplinas').change(() => {
+
+});
 $('#notas').click(function(){
     $('#notas').addClass('is-active');
     $('#feitos').removeClass('is-active');

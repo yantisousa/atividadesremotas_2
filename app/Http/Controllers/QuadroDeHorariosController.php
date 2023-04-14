@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Teachers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class QuadroDeHorariosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +13,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-        //
+        return view('horarios.index');
     }
 
     /**
@@ -25,7 +23,7 @@ class LoginController extends Controller
      */
     public function create()
     {
-        return view('login.login');
+        //
     }
 
     /**
@@ -36,11 +34,7 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-            return redirect()->route('disciplines.index');
-        }
-        return redirect()->back();
+        //
     }
 
     /**
@@ -85,7 +79,6 @@ class LoginController extends Controller
      */
     public function destroy($id)
     {
-        Auth::logout($id);    
-        redirect()->route('login');
+        //
     }
 }

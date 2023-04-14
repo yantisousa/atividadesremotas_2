@@ -9,97 +9,104 @@
 
 <nav style="background-color: #006494;" class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="{{ route('disciplines.index') }}">
-        <img src="{{ url('assets/img/logo.png') }}" width="30" height="58">
-      </a>
-      <i class="material-icons" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-                aria-controls="offcanvasExample">menu</i>
-
-
+        <a class="navbar-item" href="{{ route('disciplines.index') }}">
+            <img src="{{ url('assets/img/logo.png') }}" width="30" height="58">
+        </a>
+        @auth
+        <i class="material-icons" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+        aria-controls="offcanvasExample">menu</i>
+        @endauth
     </div>
-  </nav>
-    @if(Auth::user())
+</nav>
+@if (Auth::user())
 
     <div class="container-fluid">
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
-                aria-labelledby="offcanvasExampleLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Informações</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div class="list-group menu">
-                        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                            {{ Auth::user()->name }}
-
-                        </a>
-                        @if(Auth::user()->roles_id == 2)
-                        <a href="{{ route('alunos.index', Auth::user()->id) }}" class="list-group-item list-group-item-action"
-                        >Minhas Atividades </a>
-                        @endif
-                        @if (Auth::user()->roles_id == 1)
-                        <a href="{{ route('disciplines.create') }}" class="list-group-item list-group-item-action"
-                       >Criar Disciplina</a>
-                       <a href="{{ route('alunos.create') }}" class="list-group-item list-group-item-action"
-                       >Criar Aluno</a>
-                       @endif
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"  class="list-group-item list-group-item-action"
-                       >Meus dados</a>
-                        <a href="#" class="list-group-item list-group-item-action"
-                            onclick="logout({{ Auth::user()->id }})">Sair da conta</a>
-                    </div>
-
-                </div>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+            aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Informações</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
+            <div class="offcanvas-body">
+                <div class="list-group menu">
+                    <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                        {{ Auth::user()->name }}
 
-            </ul>
+                    </a>
+                    @if (Auth::user()->roles_id == 2)
+                        <a href="{{ route('alunos.index', Auth::user()->id) }}"
+                            class="list-group-item list-group-item-action">Minhas Atividades </a>
+                    @endif
+
+                    <a href="{{ route('horarios.index') }}"
+                        class="list-group-item list-group-item-action">Quadro de Horários </a>
+
+                    @if (Auth::user()->roles_id == 1)
+                        <a href="{{ route('disciplines.create') }}" class="list-group-item list-group-item-action">Criar
+                            Disciplina</a>
+                        <a href="{{ route('alunos.create') }}" class="list-group-item list-group-item-action">Criar
+                            Aluno</a>
+                    @endif
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        class="list-group-item list-group-item-action">Meus dados</a>
+                    <a href="#" class="list-group-item list-group-item-action"
+                        onclick="logout({{ Auth::user()->id }})">Sair da conta</a>
+                </div>
+
+            </div>
+        </div>
+
+        </ul>
 
 
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" onclick="logout({{ Auth::user()->id }})"></a></li>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" onclick="logout({{ Auth::user()->id }})"></a></li>
     </div>
 
     </a>
-</nav>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Dados</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </nav>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Dados</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Nome</label>
+                            <input type="email" class="form-control" value="{{ Auth::user()->name }}"
+                                id="exampleInputEmail1" disabled aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email</label>
+                            <input type="email" class="form-control" value="{{ Auth::user()->email }}" disabled
+                                id="exampleInputPassword1">
+                        </div>
+                        @if (Auth::user()->roles_id == 1)
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Eu sou:</label>
+                                <input type="email" class="form-control" value="Professor(a)" disabled
+                                    id="exampleInputPassword1">
+                            </div>
+                        @else
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Eu sou:</label>
+                                <input type="email" class="form-control" value="Aluno(a)" disabled
+                                    id="exampleInputPassword1">
+                            </div>
+                        @endif
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            <form>
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Nome</label>
-                  <input type="email" class="form-control" value="{{ Auth::user()->name }}" id="exampleInputEmail1" disabled aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email</label>
-                  <input type="email" class="form-control" value="{{ Auth::user()->email }}" disabled id="exampleInputPassword1">
-                </div>
-                @if(Auth::user()->roles_id == 1)
-
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Eu sou:</label>
-                  <input type="email" class="form-control" value="Professor(a)" disabled id="exampleInputPassword1">
-                </div>
-                @else
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Eu sou:</label>
-                  <input type="email" class="form-control" value="Aluno(a)" disabled id="exampleInputPassword1">
-                </div>
-                @endif
-              </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
     </div>
-  </div>
-  @endif
+@endif
 
 <!-- As a heading -->
 

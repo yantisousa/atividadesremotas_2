@@ -27,7 +27,7 @@
         }
 
     </style>
-        @if ($errors->any())
+        {{-- @if ($errors->any())
             <div class="alert alert-danger erros">
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -35,30 +35,26 @@
                     @endforeach
                 </ul>
             </div>
-        @endif
+        @endif --}}
     <div class="container conteiner-login">
         <div class="row coluna-login">
             <div class="col-md-4 offset-md-4 align-self-center "
                 style="background-color: white; height:400px; border-radius: 10px; box-shadow:0 0px 3px #67736b;">
-                <form action="{{route('atividades.store', $disciplinasID)}}" method="POST" class="form-login" enctype="multipart/form-data">
+                <form action="{{route('alunos.update', $atividades)}}" method="POST" class="form-login" enctype="multipart/form-data">
+                    @method('put')
                     @csrf
-                    <h4>Criar Atividade</h4>
+                    <h4>Editar Atividade</h4>
                     <div class="row">
                         <div class="col-12">
-                            <div class="mb-3">
-                                <input type="text" class="form-control" id="exampleFormControlInput1" name="name"
-                                    placeholder="Nome da Atividade">
-                            </div>
-
                                 <div class="col-12">
                                     <div class="mb-3">
-                                        <textarea name="filepath" id="editor"></textarea>
+                                        <input class="form-control" type="file" id="formFile" name="filepath" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="mb-3">
                                         <textarea class="form-control" type="password" id="exampleFormControlInput1"
-                                            name="description" placeholder="Descrição sobre a atividade"></textarea>
+                                            name="description" placeholder="Descrição sobre a atividade">{{$atividades->description}}</textarea>
 
                                     </div>
                                 </div>

@@ -41,7 +41,7 @@
                                         <span class="icon is-small">
                                             <i class="fas fa-reply" aria-hidden="true"></i>
                                         </span>
-                                        {{ $alunos->activity->activity_id }}
+                                        {{ $alunos->activity }}
                                     </a>
                                     <button class="js-modal-trigger btn btn-primary"
                                         onclick="visualizarImageAtividadesProfessor({{ $alunos->id }})"

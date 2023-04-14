@@ -10,12 +10,15 @@ class activities_responses extends Model
 {
     use HasFactory;
     protected $table;
-    protected $fillable = ['activity_id', 'user_id', 'check',  'note',  'filepath', 'description'];
+    protected $fillable = ['activities_id', 'user_id', 'check',  'note',  'filepath', 'description'];
+    protected $casts = [
+        'check' => 'boolean',
+    ];
 
     public function user(){
         return $this->belongsTo(User::class);
     }
-    public function activity(){
-        return $this->belongsTo(Activities::class);
+    public function activityModel(){
+        return $this->belongsTo(Activities::class, 'activities_id', 'id');
     }
 }

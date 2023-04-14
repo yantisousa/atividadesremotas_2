@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Activities extends Model
 {
     use HasFactory;
-    protected $table = 'activities';
+    // protected $table = 'activities';
     protected $fillable = ['teacher_id', 'discipline_id', 'name', 'filepath', 'description','status' ];
 
     public function teacherModel(){
         return $this->hasOne(Teachers::class, 'teacher_id');
     }
     public function disciplineModel(){
-        return $this->hasOne(Disciplines::class);
+        return $this->belongsTo(Disciplines::class, 'discipline_id', 'id');
     }
     public function activity(){
-        return $this->hasMany(activities_responses::class, 'activities_id',  'id');
+        return $this->hasMany(activities_responses::class, 'id', 'activities_id');
     }
 }
