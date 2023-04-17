@@ -60,6 +60,16 @@ function deletarAtividade(id)
     })
     console.log(id);
 }
+function teste(id){
+    // console.log(id);
+    $.ajax({
+        url: `/alunos/atividades/${id}`,
+        type: 'get',
+        success: function(dados){
+            console.log(dados);
+        }
+    });
+}
 function mudaDisciplina(id){
    let disciplinas = $('#disciplinas').val();
    $.ajax({
@@ -69,7 +79,9 @@ function mudaDisciplina(id){
         },
         type: 'get',
         success: function(dados){
-            console.log(dados);
+            for(let i = 0; i < dados.length; i++){
+                ($('#nome').text(dados[i].activity.description));
+            }
         }
     });
 }

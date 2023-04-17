@@ -34,13 +34,15 @@
             <div class="row align-items-start">
 
             @forelse ($atividades as $atividade)
-                <div class="col">
+
+                <div class="col-4">
                     <div class="card" style="width: 18rem;">
                         <img onclick="visualizarImage({{ $atividade->id }})" class="js-modal-trigger img-thumbnail"
                         data-target="modal-js-example" src="{{ url('storage/', $atividade->filepath) }}">
                         <div class="card-body">
                         <h5 class="card-title"></h5>
                         <p class="card-text">{{$atividade->description}}</p>
+                        <p><strong>Disciplina:</strong> {{ $atividade->activityModel->disciplineModel->name }}</p>
                         <b>Dia da Postagem: </b>{{ date('d/m/Y', strtotime($atividade->created_at)) }}
 
                         @if (in_array($atividade->id, $atividadesNotes))

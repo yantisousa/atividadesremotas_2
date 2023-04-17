@@ -12,7 +12,7 @@ class Disciplines extends Model
     protected $fillable = ['name'];
 
     public function activityModel(){
-        return $this->hasMany(Activities::class, 'id', 'discipline_id');
+        return $this->belongsTo(Activities::class, 'id', 'discipline_id');
     }
 
 }

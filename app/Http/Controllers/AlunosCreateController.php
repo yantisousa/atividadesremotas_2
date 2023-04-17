@@ -19,19 +19,31 @@ class AlunosCreateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Request $request, $id)
     {
-        $atividades = activities_responses::orderBy('check', 'desc')->where('user_id', $id)->get();
-        $atividadesNotes = activities_responses::where('user_id', $id)->where('note', '!=', null)->get()->map( function($item){
+        $disciplinas = Disciplines::all();
+        // if (!empty($request->all())) {
+
+        //     $statusDisciplina = $request->disciplinas;
+        //     $atividades = Activities::with(['activity' => function ($query) use ($id) {
+        //         $query->where('user_id', $id);
+        //     }])->where('discipline_id', $statusDisciplina)->get();
+        //     return response()->json($atividades);
+        //     // return view('alunos.atividades', compact('disciplinas', 'atividades'));
+        //     // dd($atividades->toArray());
+        // }
+
+        $atividades = activities_responses::with('activityModel')->where('user_id', $id)->orderBy('check', 'desc')->get();
+        $atividadesNotes = activities_responses::where('user_id', $id)->where('note', '!=', null)->get()->map(function ($item) {
             return $item->id;
         })->toArray();
-        $disciplinas = Disciplines::all();
-        return view('alunos.atividades', compact('atividades', 'atividadesNotes', 'disciplinas'));
 
+        return view('alunos.atividades', compact('disciplinas', 'atividades', 'atividadesNotes'));
         return view('alunos.atividades');
     }
 
-    public function visualizarImage($id){
+    public function visualizarImage($id)
+    {
         $imageActive = activities_responses::find($id);
         return $imageActive;
     }
@@ -72,6 +84,7 @@ class AlunosCreateController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect()->route('disciplines.index');
         }
+        return redirect()->back()->with('msg', 'Sua credenciais estão incorretas!');
     }
 
     /**
@@ -82,12 +95,11 @@ class AlunosCreateController extends Controller
      */
     public function show(Request $request, $id)
     {
-        if($request->manipulador == 2){
+        if ($request->manipulador == 2) {
 
             $atividadesFeitasCount = activities_responses::where('user_id', $id)->count();
             return $atividadesFeitasCount;
-
-        }else{
+        } else {
             $atividadesFeitasCount = activities_responses::where('user_id', $id)->where('check', 1)->count();
             $atividades = Activities::where('status', 2)->get();
             return $atividadesFeitasCount;
@@ -133,6 +145,5 @@ class AlunosCreateController extends Controller
     public function destroy($id)
     {
         $atividades = activities_responses::find($id)->delete();
-
     }
 }
