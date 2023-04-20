@@ -47,7 +47,7 @@
 
         .box-full {
             border: 1px solid #B3B3B3;
-            height: 230px;
+            height: 170px;
             border-radius: 10px;
             background-color: white;
         }
@@ -67,7 +67,7 @@
     <body>
 
 
-        <h1 style="text-align: center;">Disciplinas</h1>
+        <h1 class="pt-4" style="text-align: center;">Disciplinas</h1>
         <br><br>
         <br><br>
         <div class="container text-center">
@@ -76,8 +76,9 @@
                     <div class="col-3 my-3">
                         <a href="{{ route('atividades.index', $disciplinas->id) }}" style="color:black;">
                             <div class="box-full"><br>
-                                <h4>{{ $disciplinas->name }}</h4><br>
-                                <button type="button" class="btn-activity position-relative">
+                                <h4>{{ $disciplinas->name }}</h4>
+                                <hr>
+                                <button type="button" class="btn btn-warning position-relative mt-2">
                                     Atividades
                                     <span
                                         class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">

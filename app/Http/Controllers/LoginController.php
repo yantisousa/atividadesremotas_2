@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginFormRequest;
 use App\Models\Teachers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +35,7 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LoginFormRequest $request)
     {
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
@@ -85,7 +86,7 @@ class LoginController extends Controller
      */
     public function destroy($id)
     {
-        Auth::logout($id);    
+        Auth::logout($id);
         redirect()->route('login');
     }
 }

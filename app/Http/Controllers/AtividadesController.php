@@ -30,7 +30,10 @@ class AtividadesController extends Controller
 
             return view('atividades.index', compact('atividades', 'disciplinasID'));
         } else {
-            $atividades = Activities::where('discipline_id', $id)->get();
+            $atividades = Activities::with('activity')->where('discipline_id', $id)->get();
+        //     foreach($atividades as $atividade){
+        // echo $atividade->activity;
+        //     }
             $users = User::find(Auth::user()->id);
             $activities = activities_responses::where('user_id', $users->id)->get()->map( function($item) {
                 return $item->activities_id;

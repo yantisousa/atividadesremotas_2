@@ -35,7 +35,7 @@
 
             @forelse ($atividades as $atividade)
 
-                <div class="col-4">
+                <div class="col-4 my-3">
                     <div class="card" style="width: 18rem;">
                         <img onclick="visualizarImage({{ $atividade->id }})" class="js-modal-trigger img-thumbnail"
                         data-target="modal-js-example" src="{{ url('storage/', $atividade->filepath) }}">
